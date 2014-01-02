@@ -184,7 +184,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
         }
     }
     else {
-        self.authentication = authentication;
+        self.authentication = (TheKeyOAuth2Authentication *)authentication;
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:TheKeyOAuth2ClientDidChangeGuidNotification object:self];
         });

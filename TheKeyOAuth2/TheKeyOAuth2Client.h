@@ -14,6 +14,7 @@
 
 /* TheKey Notifications */
 FOUNDATION_EXPORT NSString *const TheKeyOAuth2ClientDidChangeGuidNotification;
+FOUNDATION_EXPORT NSString *const TheKeyOAuth2ClientGuidKey;
 
 /* TheKey Guest GUID */
 FOUNDATION_EXPORT NSString *const TheKeyOAuth2GuestGUID;

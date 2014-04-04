@@ -30,6 +30,7 @@ static NSString *const TheKeyOAuth2AuthorizeEndpoint  = @"oauth/authorize";
 
 /* TheKey Notifications */
 NSString *const TheKeyOAuth2ClientDidChangeGuidNotification = @"TheKeyOAuth2ClientDidChangeGuidNotification";
+NSString *const TheKeyOAuth2ClientGuidKey = @"guid";
 
 /* TheKey GUID Identifiers */
 static NSString *const kTheKeyOAuth2GUIDKey = @"thekey_guid";
@@ -92,7 +93,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
     [TheKeyOAuth2LoginViewController removeAuthFromKeychainForName:TheKeyOAuth2KeychainName];
     self.authentication = [self newAuthenticationUsingKeychain:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:TheKeyOAuth2ClientDidChangeGuidNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TheKeyOAuth2ClientDidChangeGuidNotification object:self userInfo:@{TheKeyOAuth2ClientGuidKey: [self guid]}];
     });
 }
 
@@ -127,13 +128,6 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 -(void)presentLoginViewControllerFromViewController:(UIViewController *)viewController loginDelegate:(id<TheKeyOAuth2ClientLoginDelegate>)delegate {
     [self presentLoginViewController:[TheKeyOAuth2LoginViewController class] fromViewController:viewController loginDelegate:delegate];
 }
-
-
-
-
-
-
-
 
 -(void)ticketForServiceURL:(NSURL *)service complete:(void (^)(NSString *ticket))complete {
     NSString * queryString = [TheKeyOAuth2Authentication encodedQueryParametersForDictionary:@{@"service":[service absoluteString]}];
@@ -186,7 +180,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
     else {
         self.authentication = (TheKeyOAuth2Authentication *)authentication;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:TheKeyOAuth2ClientDidChangeGuidNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TheKeyOAuth2ClientDidChangeGuidNotification object:self userInfo:@{TheKeyOAuth2ClientGuidKey: [self guid]}];
         });
         if (_isLoginViewPresented) {
             [viewController.presentingViewController dismissViewControllerAnimated:YES completion:^{}];

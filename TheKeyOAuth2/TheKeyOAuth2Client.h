@@ -23,7 +23,8 @@ FOUNDATION_EXPORT NSString *const TheKeyOAuth2GuestGUID;
 
 +(TheKeyOAuth2Client *)sharedOAuth2Client;
 
--(id)initWithTheKeyServerURL:(NSURL *)serverURL clientId:(NSString *)clientId;
+-(id)init;
+-(void)setServerURL:(NSURL *)serverURL clientId:(NSString *)clientId;
 
 -(NSString *)guid;
 

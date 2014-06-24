@@ -12,10 +12,6 @@
 #import <GTMOAuth2Authentication.h>
 #import <GTMOAuth2ViewControllerTouch.h>
 
-/* NSBundle Identifiers */
-static NSString *const kTheKeyOAuth2ClientIDKey  = @"TheKeyOAuth2ClientID";
-static NSString *const kTheKeyOAuth2ServerURLKey = @"TheKeyOAuth2ServerURL";
-
 /* TheKey OAuth2 Settings */
 static NSString *const TheKeyOAuth2ServiceProvider = @"TheKey";
 static NSString *const TheKeyOAuth2RedirectURI     = @"thekey:/oauth/mobile/ios";
@@ -45,6 +41,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 @interface TheKeyOAuth2Client () {
     @private
     BOOL _isLoginViewPresented;
+    BOOL _isConfigured;
 }
 
 @property (nonatomic, strong) NSURL *serverURL;
@@ -64,21 +61,24 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
     __strong static TheKeyOAuth2Client *_client;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *server = [[NSBundle mainBundle] objectForInfoDictionaryKey:kTheKeyOAuth2ServerURLKey];
-        NSString *clientId = [[NSBundle mainBundle] objectForInfoDictionaryKey:kTheKeyOAuth2ClientIDKey];
-        _client = [[TheKeyOAuth2Client alloc] initWithTheKeyServerURL:[NSURL URLWithString:server] clientId:clientId];
+        _client = [[TheKeyOAuth2Client alloc] init];
     });
     return _client;
 }
 
--(id)initWithTheKeyServerURL:(NSURL *)serverURL clientId:(NSString *)clientId {
+-(id)init {
     self = [super init];
     if (self) {
-        _serverURL = [serverURL copy];
-        _clientId = [clientId copy];
-        _authentication = [self newAuthenticationUsingKeychain:YES];
+        _isConfigured = NO;
     }
     return self;
+}
+
+-(void)setServerURL:(NSURL *)serverURL clientId:(NSString *)clientId {
+    _serverURL = [serverURL copy];
+    _clientId = [clientId copy];
+    _authentication = [self newAuthenticationUsingKeychain:YES];
+    _isConfigured = YES;
 }
 
 -(BOOL)isAuthenticated {

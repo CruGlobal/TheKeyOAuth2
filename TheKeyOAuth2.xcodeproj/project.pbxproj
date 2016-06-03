@@ -281,6 +281,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AE3262F8F81A51B264ED0E2B /* Pods-TheKeyOAuth2.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				DSTROOT = /tmp/TheKeyOAuth2.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TheKeyOAuth2/TheKeyOAuth2-Prefix.pch";
@@ -297,6 +298,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8B0B05FD0B9E5DDA3CC3A19 /* Pods-TheKeyOAuth2.release.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				DSTROOT = /tmp/TheKeyOAuth2.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TheKeyOAuth2/TheKeyOAuth2-Prefix.pch";

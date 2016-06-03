@@ -14,15 +14,15 @@
 
 /* TheKey OAuth2 Settings */
 static NSString *const TheKeyOAuth2ServiceProvider = @"TheKey";
-static NSString *const TheKeyOAuth2RedirectURI     = @"thekey:/oauth/mobile/ios";
-static NSString *const TheKeyOAuth2Scope           = @"fullticket";
+static NSString *const TheKeyOAuth2RedirectURI     = @"thekey:/oauth/client/public";
+static NSString *const TheKeyOAuth2Scope           = @"fullticket,extended";
 static NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
 
-/* TheKey OAuth2 Enpoints */
+/* TheKey OAuth2 Endpoints */
 static NSString *const TheKeyOAuth2TokenEndpoint      = @"api/oauth/token";
 static NSString *const TheKeyOAuth2TicketEndpoint     = @"api/oauth/ticket";
 static NSString *const TheKeyOAuth2AttributesEndpoint = @"api/oauth/attributes";
-static NSString *const TheKeyOAuth2AuthorizeEndpoint  = @"oauth/authorize";
+static NSString *const TheKeyOAuth2AuthorizeEndpoint  = @"login";
 
 /* TheKey Notifications */
 NSString *const TheKeyOAuth2ClientDidChangeGuidNotification = @"TheKeyOAuth2ClientDidChangeGuidNotification";

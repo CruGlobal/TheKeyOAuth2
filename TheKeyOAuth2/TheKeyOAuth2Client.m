@@ -194,8 +194,9 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 
 - (NSString *)redirectURL {
     NSString *optionalSlash = [[[self serverURL] absoluteString] hasSuffix:@"/"] ? @"" : @"/";
-    NSString *redirectURL = [NSString stringWithFormat:@"%@$@%@", [[self serverURL] absoluteString], optionalSlash, TheKeyOAuth2RedirectURI];
+    return [NSString stringWithFormat:@"%@%@%@", [[self serverURL] absoluteString], optionalSlash, TheKeyOAuth2RedirectURI];
 }
+
 @end
 
 @implementation TheKeyOAuth2Authentication

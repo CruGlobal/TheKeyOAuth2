@@ -9,8 +9,8 @@
 #import "TheKeyOAuth2Client.h"
 #import "TheKeyOAuth2LoginViewController.h"
 
-#import <GTMOAuth2Authentication.h>
-#import <GTMOAuth2ViewControllerTouch.h>
+#import "GTMOAuth2Authentication.h"
+#import "GTMOAuth2ViewControllerTouch.h"
 
 /* TheKey OAuth2 Settings */
 static NSString *const TheKeyOAuth2ServiceProvider = @"TheKey";

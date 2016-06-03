@@ -14,7 +14,7 @@
 
 /* TheKey OAuth2 Settings */
 static NSString *const TheKeyOAuth2ServiceProvider = @"TheKey";
-static NSString *const TheKeyOAuth2RedirectURI     = @"thekey:/oauth/client/public";
+static NSString *const TheKeyOAuth2RedirectURI     = @"/oauth/client/public";
 static NSString *const TheKeyOAuth2Scope           = @"fullticket,extended";
 static NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
 

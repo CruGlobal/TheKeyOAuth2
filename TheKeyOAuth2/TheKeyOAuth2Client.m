@@ -170,7 +170,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 
 -(void)viewController:(GTMOAuth2ViewControllerTouch *)viewController finishedWithAuth:(GTMOAuth2Authentication *)authentication error:(NSError *)error {
     if (error != nil) {
-        if (error.code != kGTMOAuth2ErrorWindowClosed && _isLoginViewPresented) {
+        if (error.code != GTMOAuth2ErrorWindowClosed && _isLoginViewPresented) {
             [viewController.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
         }
         if (self.loginDelegate && [self.loginDelegate respondsToSelector:@selector(loginViewController:loginError:)]) {

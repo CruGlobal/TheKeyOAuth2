@@ -156,9 +156,10 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 }
 
 -(TheKeyOAuth2Authentication *)newAuthenticationUsingKeychain:(BOOL)useKeychain {
+    NSString *redirectURL = [NSString stringWithFormat:@"%@%@", [[self serverURL] absoluteString], TheKeyOAuth2RedirectURI];
     TheKeyOAuth2Authentication *auth = [TheKeyOAuth2Authentication authenticationWithServiceProvider:TheKeyOAuth2ServiceProvider
                                                                                             tokenURL:[self.serverURL URLByAppendingPathComponent:TheKeyOAuth2TokenEndpoint]
-                                                                                         redirectURI:TheKeyOAuth2RedirectURI
+                                                                                         redirectURI:redirectURL
                                                                                             clientID:self.clientId
                                                                                         clientSecret:@""];
     [auth setScope:TheKeyOAuth2Scope];

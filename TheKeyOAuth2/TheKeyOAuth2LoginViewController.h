@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 TheKey. All rights reserved.
 //
 
-#import "GTMOAuth2ViewControllerTouch.h"
+#import <GTMOAuth2/GTMOAuth2ViewControllerTouch.h>
 
 @interface TheKeyOAuth2LoginViewController : GTMOAuth2ViewControllerTouch
 

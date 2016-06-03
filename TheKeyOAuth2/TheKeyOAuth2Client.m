@@ -14,8 +14,8 @@
 
 /* TheKey OAuth2 Settings */
 static NSString *const TheKeyOAuth2ServiceProvider = @"TheKey";
-static NSString *const TheKeyOAuth2RedirectURI     = @"/oauth/client/public";
-static NSString *const TheKeyOAuth2Scope           = @"fullticket,extended";
+static NSString *const TheKeyOAuth2RedirectURI     = @"oauth/client/public";
+static NSString *const TheKeyOAuth2Scope           = @"fullticket extended";
 static NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
 
 /* TheKey OAuth2 Endpoints */
@@ -156,10 +156,9 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 }
 
 -(TheKeyOAuth2Authentication *)newAuthenticationUsingKeychain:(BOOL)useKeychain {
-    NSString *redirectURL = [NSString stringWithFormat:@"%@%@", [[self serverURL] absoluteString], TheKeyOAuth2RedirectURI];
     TheKeyOAuth2Authentication *auth = [TheKeyOAuth2Authentication authenticationWithServiceProvider:TheKeyOAuth2ServiceProvider
                                                                                             tokenURL:[self.serverURL URLByAppendingPathComponent:TheKeyOAuth2TokenEndpoint]
-                                                                                         redirectURI:redirectURL
+                                                                                         redirectURI:[self redirectURL]
                                                                                             clientID:self.clientId
                                                                                         clientSecret:@""];
     [auth setScope:TheKeyOAuth2Scope];
@@ -191,6 +190,11 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
         }
     }
     self.loginDelegate = nil;
+}
+
+- (NSString *)redirectURL {
+    NSString *optionalSlash = [[[self serverURL] absoluteString] hasSuffix:@"/"] ? @"" : @"/";
+    NSString *redirectURL = [NSString stringWithFormat:@"%@$@%@", [[self serverURL] absoluteString], optionalSlash, TheKeyOAuth2RedirectURI];
 }
 @end
 

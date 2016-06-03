@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.source_files = 'TheKeyOAuth2/*.{h,m}'
   s.public_header_files = "TheKeyOAuth2/TheKeyOAuth2Client.h", "TheKeyOAuth2/TheKeyOAuth2LoginViewController.h"
   s.requires_arc = true
-  s.dependency 'GTMOAuth2', :git => 'https://github.com/google/gtm-oauth2.git', '~> 1.1.1'
+  s.dependency 'GTMOAuth2', '~> 1.1.1'
 end
 

@@ -130,18 +130,37 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 }
 
 -(void)ticketForServiceURL:(NSURL *)service complete:(void (^)(NSString *ticket))complete {
+    [self ticketForServiceURL:service complete:complete tryRefreshingAccessToken:true];
+}
+
+-(void)ticketForServiceURL:(NSURL *)service complete:(void (^)(NSString *ticket))complete tryRefreshingAccessToken:(BOOL)refresh {
     NSString * queryString = [TheKeyOAuth2Authentication encodedQueryParametersForDictionary:@{@"service":[service absoluteString]}];
     NSURL *ticketURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [[self.serverURL URLByAppendingPathComponent:TheKeyOAuth2TicketEndpoint] absoluteString], queryString]];
     NSMutableURLRequest *ticketRequest = [NSMutableURLRequest requestWithURL:ticketURL];
     [self.authentication authorizeRequest:ticketRequest completionHandler:^(NSError *error) {
         if (error == nil) {
             [NSURLConnection sendAsynchronousRequest:ticketRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                if (data && [(NSHTTPURLResponse *)response statusCode] == 200) {
+                NSInteger *code = [(NSHTTPURLResponse *)response statusCode];
+
+                if (data && code == 200) {
                     NSError *error = nil;
                     NSDictionary *json = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                     NSString *ticket = [json valueForKey:@"ticket"];
                     if (complete != nil) {
                         complete(ticket);
+                    }
+                }
+                else if (code == 401) {
+                    // try forcing an access_token refresh (1 time only)
+                    if (refresh && [self.authentication primeForRefresh]) {
+                        [self ticketForServiceURL:service complete:complete tryRefreshingAccessToken:false]
+                    }
+                    // otherwise reset the authentication
+                    else {
+                        [self.authentication reset];
+                        if (complete != nil) {
+                            complete(nil);
+                        }
                     }
                 }
                 else if(complete) {

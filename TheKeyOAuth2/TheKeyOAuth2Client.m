@@ -9,20 +9,20 @@
 #import "TheKeyOAuth2Client.h"
 #import "TheKeyOAuth2LoginViewController.h"
 
-#import <GTMOAuth2Authentication.h>
-#import <GTMOAuth2ViewControllerTouch.h>
+#import "GTMOAuth2Authentication.h"
+#import "GTMOAuth2ViewControllerTouch.h"
 
 /* TheKey OAuth2 Settings */
 static NSString *const TheKeyOAuth2ServiceProvider = @"TheKey";
-static NSString *const TheKeyOAuth2RedirectURI     = @"thekey:/oauth/mobile/ios";
-static NSString *const TheKeyOAuth2Scope           = @"fullticket";
+static NSString *const TheKeyOAuth2RedirectURI     = @"oauth/client/public";
+static NSString *const TheKeyOAuth2Scope           = @"fullticket extended";
 static NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
 
-/* TheKey OAuth2 Enpoints */
+/* TheKey OAuth2 Endpoints */
 static NSString *const TheKeyOAuth2TokenEndpoint      = @"api/oauth/token";
 static NSString *const TheKeyOAuth2TicketEndpoint     = @"api/oauth/ticket";
 static NSString *const TheKeyOAuth2AttributesEndpoint = @"api/oauth/attributes";
-static NSString *const TheKeyOAuth2AuthorizeEndpoint  = @"oauth/authorize";
+static NSString *const TheKeyOAuth2AuthorizeEndpoint  = @"login";
 
 /* TheKey Notifications */
 NSString *const TheKeyOAuth2ClientDidChangeGuidNotification = @"TheKeyOAuth2ClientDidChangeGuidNotification";
@@ -158,7 +158,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 -(TheKeyOAuth2Authentication *)newAuthenticationUsingKeychain:(BOOL)useKeychain {
     TheKeyOAuth2Authentication *auth = [TheKeyOAuth2Authentication authenticationWithServiceProvider:TheKeyOAuth2ServiceProvider
                                                                                             tokenURL:[self.serverURL URLByAppendingPathComponent:TheKeyOAuth2TokenEndpoint]
-                                                                                         redirectURI:TheKeyOAuth2RedirectURI
+                                                                                         redirectURI:[self redirectURL]
                                                                                             clientID:self.clientId
                                                                                         clientSecret:@""];
     [auth setScope:TheKeyOAuth2Scope];
@@ -170,7 +170,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 
 -(void)viewController:(GTMOAuth2ViewControllerTouch *)viewController finishedWithAuth:(GTMOAuth2Authentication *)authentication error:(NSError *)error {
     if (error != nil) {
-        if (error.code != kGTMOAuth2ErrorWindowClosed && _isLoginViewPresented) {
+        if (error.code != GTMOAuth2ErrorWindowClosed && _isLoginViewPresented) {
             [viewController.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
         }
         if (self.loginDelegate && [self.loginDelegate respondsToSelector:@selector(loginViewController:loginError:)]) {
@@ -191,6 +191,12 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
     }
     self.loginDelegate = nil;
 }
+
+- (NSString *)redirectURL {
+    NSString *optionalSlash = [[[self serverURL] absoluteString] hasSuffix:@"/"] ? @"" : @"/";
+    return [NSString stringWithFormat:@"%@%@%@", [[self serverURL] absoluteString], optionalSlash, TheKeyOAuth2RedirectURI];
+}
+
 @end
 
 @implementation TheKeyOAuth2Authentication

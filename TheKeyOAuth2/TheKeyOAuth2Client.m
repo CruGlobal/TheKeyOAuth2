@@ -140,7 +140,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
     [self.authentication authorizeRequest:ticketRequest completionHandler:^(NSError *error) {
         if (error == nil) {
             [NSURLConnection sendAsynchronousRequest:ticketRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                NSInteger *code = [(NSHTTPURLResponse *)response statusCode];
+                NSInteger code = [(NSHTTPURLResponse *)response statusCode];
 
                 if (data && code == 200) {
                     NSError *error = nil;
@@ -153,7 +153,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
                 else if (code == 401) {
                     // try forcing an access_token refresh (1 time only)
                     if (refresh && [self.authentication primeForRefresh]) {
-                        [self ticketForServiceURL:service complete:complete tryRefreshingAccessToken:false]
+                        [self ticketForServiceURL:service complete:complete tryRefreshingAccessToken:false];
                     }
                     // otherwise reset the authentication
                     else {

@@ -22,19 +22,16 @@ iOS OAuth2 Library for TheKey
 ````objc
 /*guid is the user's unique identifier in the identity system. no value means authN was not successful*/
 - (void)loginViewController:(TheKeyOAuth2LoginViewController *)loginViewController loginSuccess:(NSString *)guid {
-    if (guid) {
-      /* finish login process */
-    } else {
-      /* present error */
-    }
+ /* optionally store the guid. complete the login process */
 }
+
+/* error implementation goes here */
 ````
 
 #### Create an instance of `TheKeyOAuth2LoginViewController` with the presenting view controller as the delegate.
 
 ````objc
 TheKeyOAuth2LoginViewController *loginController = [[TheKeyOAuth2Client sharedOAuth2Client] loginViewControllerWithLoginDelegate:self];
-self.navigationController.navigationBar.hidden = NO;
 [self.navigationController pushViewController:loginController animated:YES];
 ````
 

@@ -84,4 +84,10 @@
     
     return [UIImage imageNamed:@"forward" inBundle:bundle compatibleWithTraitCollection:nil];
 }
+
+// subclasses may override this to specify a custom nib bundle
+// This allows the POD to be used as a framework so that it can be used properly in SWIFT code.
++ (NSBundle *)authNibBundle {
+    return [NSBundle bundleForClass:[GTMOAuth2ViewControllerTouch class]];
+}
 @end

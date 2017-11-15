@@ -57,14 +57,14 @@
 }
 
 - (void)configureNavButtons {
-    UIImage *backImage = [self isRightToLeftLanguage] ? [self leftChevronImage] : [self rightChevronImage];
+    UIImage *backImage = [self isLeftToRightLanguage] ? [self leftChevronImage] : [self rightChevronImage];
     
     self.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
                                                               style:UIBarButtonItemStylePlain
                                                              target:self.webView
                                                              action:@selector(goBack)];
     
-    UIImage *forwardImage = [self isRightToLeftLanguage] ? [self rightChevronImage] : [self leftChevronImage];
+    UIImage *forwardImage = [self isLeftToRightLanguage] ? [self rightChevronImage] : [self leftChevronImage];
     
     self.forwardBarButtonItem = [[UIBarButtonItem alloc] initWithImage:forwardImage
                                                                  style:UIBarButtonItemStylePlain
@@ -77,8 +77,8 @@
     self.navigationItem.rightBarButtonItems = @[self.forwardBarButtonItem, self.backBarButtonItem];
 }
 
--(bool)isRightToLeftLanguage {
-    return [@"ar" isEqualToString:[[NSLocale currentLocale] languageCode]];
+-(bool)isLeftToRightLanguage {
+    return ![@"ar" isEqualToString:[[NSLocale currentLocale] languageCode]];
 }
 
 -(UIImage *)leftChevronImage {

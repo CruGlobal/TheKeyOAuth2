@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TheKeyOAuth2"
-  s.version      = "0.6.6"
+  s.version      = "0.6.7"
   s.summary      = "TheKey OAuth2 Client Library."
   s.homepage     = "http://thekey.me/"
   s.license      = { :type => 'Modified BSD', :file => 'LICENSE.txt' }

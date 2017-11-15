@@ -28,6 +28,8 @@
 /* Begin PBXFileReference section */
 		4F4F4C961FBCCE0900CEE815 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/back.png; sourceTree = "<group>"; };
 		4F4F4C981FBCCE2800CEE815 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/forward.png; sourceTree = "<group>"; };
+		4F4F4C9A1FBCCE5C00CEE815 /* ar */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ar; path = ar.lproj/back.png; sourceTree = "<group>"; };
+		4F4F4C9B1FBCCE5C00CEE815 /* ar */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ar; path = ar.lproj/forward.png; sourceTree = "<group>"; };
 		5DFA7ABA8C5C33723E52B498 /* libPods-TheKeyOAuth2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TheKeyOAuth2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE3262F8F81A51B264ED0E2B /* Pods-TheKeyOAuth2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheKeyOAuth2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheKeyOAuth2/Pods-TheKeyOAuth2.debug.xcconfig"; sourceTree = "<group>"; };
 		CBEB0AEA9BB74A64BB7CDF39 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ar,
 			);
 			mainGroup = D3BAC3A21836AD9500EDE24A;
 			productRefGroup = D3BAC3AC1836AD9500EDE24A /* Products */;
@@ -229,6 +232,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4F4F4C961FBCCE0900CEE815 /* en */,
+				4F4F4C9A1FBCCE5C00CEE815 /* ar */,
 			);
 			name = back.png;
 			path = TheKeyOAuth2/Resources;
@@ -238,6 +242,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4F4F4C981FBCCE2800CEE815 /* en */,
+				4F4F4C9B1FBCCE5C00CEE815 /* ar */,
 			);
 			name = forward.png;
 			path = TheKeyOAuth2/Resources;
@@ -251,6 +256,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -289,6 +295,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

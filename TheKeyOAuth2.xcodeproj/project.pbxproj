@@ -26,8 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4FF059841D3D5CEA000F6461 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = TheKeyOAuth2/Resources/back.png; sourceTree = "<group>"; };
-		4FF059851D3D5CEA000F6461 /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forward.png; path = TheKeyOAuth2/Resources/forward.png; sourceTree = "<group>"; };
+		4F4F4C961FBCCE0900CEE815 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/back.png; sourceTree = "<group>"; };
+		4F4F4C981FBCCE2800CEE815 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/forward.png; sourceTree = "<group>"; };
 		5DFA7ABA8C5C33723E52B498 /* libPods-TheKeyOAuth2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TheKeyOAuth2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE3262F8F81A51B264ED0E2B /* Pods-TheKeyOAuth2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheKeyOAuth2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheKeyOAuth2/Pods-TheKeyOAuth2.debug.xcconfig"; sourceTree = "<group>"; };
 		CBEB0AEA9BB74A64BB7CDF39 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,8 +68,8 @@
 		4FF0597E1D3D4CF8000F6461 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4FF059841D3D5CEA000F6461 /* back.png */,
-				4FF059851D3D5CEA000F6461 /* forward.png */,
+				4F4F4C971FBCCE0900CEE815 /* back.png */,
+				4F4F4C991FBCCE2800CEE815 /* forward.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -223,6 +223,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4F4F4C971FBCCE0900CEE815 /* back.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F4F4C961FBCCE0900CEE815 /* en */,
+			);
+			name = back.png;
+			path = TheKeyOAuth2/Resources;
+			sourceTree = "<group>";
+		};
+		4F4F4C991FBCCE2800CEE815 /* forward.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F4F4C981FBCCE2800CEE815 /* en */,
+			);
+			name = forward.png;
+			path = TheKeyOAuth2/Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D3BAC3CC1836AD9500EDE24A /* Debug */ = {

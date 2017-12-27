@@ -199,18 +199,20 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
         if (self.loginDelegate && [self.loginDelegate respondsToSelector:@selector(loginViewController:loginError:)]) {
             [self.loginDelegate loginViewController:(TheKeyOAuth2LoginViewController *)viewController loginError:error];
         }
+        self.loginDelegate = nil;
+
+        return;
     }
-    else {
-        self.authentication = (TheKeyOAuth2Authentication *)authentication;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:TheKeyOAuth2ClientDidChangeGuidNotification object:self userInfo:@{TheKeyOAuth2ClientGuidKey: [self guid]}];
-        });
-        if (_isLoginViewPresented) {
-            [viewController.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
-        }
-        if (self.loginDelegate && [self.loginDelegate respondsToSelector:@selector(loginViewController:loginSuccess:)]) {
-            [self.loginDelegate loginViewController:(TheKeyOAuth2LoginViewController *)viewController loginSuccess:self.authentication.guid];
-        }
+    
+    self.authentication = (TheKeyOAuth2Authentication *)authentication;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:TheKeyOAuth2ClientDidChangeGuidNotification object:self userInfo:@{TheKeyOAuth2ClientGuidKey: [self guid]}];
+    });
+    if (_isLoginViewPresented) {
+        [viewController.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    }
+    if (self.loginDelegate && [self.loginDelegate respondsToSelector:@selector(loginViewController:loginSuccess:)]) {
+        [self.loginDelegate loginViewController:(TheKeyOAuth2LoginViewController *)viewController loginSuccess:self.authentication.guid];
     }
     self.loginDelegate = nil;
 }

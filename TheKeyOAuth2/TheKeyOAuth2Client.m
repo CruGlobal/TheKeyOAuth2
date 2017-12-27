@@ -105,17 +105,18 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 }
 
 -(TheKeyOAuth2LoginViewController *)loginViewController:(Class)loginViewControllerClass loginDelegate:(id<TheKeyOAuth2ClientLoginDelegate>)delegate {
-    if ([loginViewControllerClass isSubclassOfClass:[TheKeyOAuth2LoginViewController class]]) {
-        self.loginDelegate = delegate;
-        _isLoginViewPresented = NO;
-        return (TheKeyOAuth2LoginViewController *)[[loginViewControllerClass alloc]
-                                                initWithAuthentication:self.authentication
-                                                authorizationURL:[self.serverURL URLByAppendingPathComponent:TheKeyOAuth2AuthorizeEndpoint]
-                                                keychainItemName:TheKeyOAuth2KeychainName
-                                                delegate:self
-                                                finishedSelector:@selector(viewController:finishedWithAuth:error:)];
+    if (![loginViewControllerClass isSubclassOfClass:[TheKeyOAuth2LoginViewController class]]) {
+        return nil;
     }
-    return nil;
+    
+    self.loginDelegate = delegate;
+    _isLoginViewPresented = NO;
+    return (TheKeyOAuth2LoginViewController *)[[loginViewControllerClass alloc]
+                                               initWithAuthentication:self.authentication
+                                               authorizationURL:[self.serverURL URLByAppendingPathComponent:TheKeyOAuth2AuthorizeEndpoint]
+                                               keychainItemName:TheKeyOAuth2KeychainName
+                                               delegate:self
+                                               finishedSelector:@selector(viewController:finishedWithAuth:error:)];
 }
 
 -(void)presentLoginViewController:(Class)loginViewControllerClass fromViewController:(UIViewController *)viewController loginDelegate:(id<TheKeyOAuth2ClientLoginDelegate>)delegate {

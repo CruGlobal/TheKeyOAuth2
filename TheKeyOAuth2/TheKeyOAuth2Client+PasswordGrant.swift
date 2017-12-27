@@ -34,10 +34,6 @@ public extension TheKeyOAuth2Client {
             }.resume()
     }
     
-//    func serviceTicket(for service: URL) -> String {
-//
-//    }
-    
     private func buildAccessTokenRequest(for username: String, password: String) -> URLRequest {
         var formURLString = "username=\(username)"
         

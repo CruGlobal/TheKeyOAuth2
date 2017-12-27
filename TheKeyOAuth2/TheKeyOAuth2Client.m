@@ -16,10 +16,10 @@
 static NSString *const TheKeyOAuth2ServiceProvider = @"TheKey";
 static NSString *const TheKeyOAuth2RedirectURI     = @"oauth/client/public";
 static NSString *const TheKeyOAuth2Scope           = @"fullticket extended";
-static NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
+NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
 
 /* TheKey OAuth2 Endpoints */
-static NSString *const TheKeyOAuth2TokenEndpoint      = @"api/oauth/token";
+NSString *const TheKeyOAuth2TokenEndpoint      = @"api/oauth/token";
 static NSString *const TheKeyOAuth2TicketEndpoint     = @"api/oauth/ticket";
 static NSString *const TheKeyOAuth2AttributesEndpoint = @"api/oauth/attributes";
 static NSString *const TheKeyOAuth2AuthorizeEndpoint  = @"login";
@@ -32,12 +32,6 @@ NSString *const TheKeyOAuth2ClientGuidKey = @"guid";
 static NSString *const kTheKeyOAuth2GUIDKey = @"thekey_guid";
 NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 
-@interface TheKeyOAuth2Authentication : GTMOAuth2Authentication
-
-@property (nonatomic) NSString *guid;
-
-@end
-
 @interface TheKeyOAuth2Client () {
     BOOL _isLoginViewPresented;
     BOOL _isConfigured;
@@ -45,7 +39,6 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 
 @property (nonatomic, strong, readwrite) NSURL *serverURL;
 @property (nonatomic, strong, readwrite) NSString *clientId;
-@property (nonatomic, strong, readwrite) TheKeyOAuth2Authentication *authentication;
 @property (nonatomic, weak) id<TheKeyOAuth2ClientLoginDelegate> loginDelegate;
 
 @end

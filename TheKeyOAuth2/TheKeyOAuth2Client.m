@@ -39,14 +39,13 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 @end
 
 @interface TheKeyOAuth2Client () {
-    @private
     BOOL _isLoginViewPresented;
     BOOL _isConfigured;
 }
 
-@property (nonatomic, strong) NSURL *serverURL;
-@property (nonatomic, strong) NSString *clientId;
-@property (nonatomic, strong) TheKeyOAuth2Authentication *authentication;
+@property (nonatomic, strong, readwrite) NSURL *serverURL;
+@property (nonatomic, strong, readwrite) NSString *clientId;
+@property (nonatomic, strong, readwrite) TheKeyOAuth2Authentication *authentication;
 @property (nonatomic, weak) id<TheKeyOAuth2ClientLoginDelegate> loginDelegate;
 
 @end
@@ -85,6 +84,10 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
     return [self.authentication canAuthorize];
 }
 
+-(BOOL)isConfigured {
+    return _isConfigured;
+}
+    
 -(NSString *)guid {
     return self.authentication.guid ?: TheKeyOAuth2GuestGUID;
 }

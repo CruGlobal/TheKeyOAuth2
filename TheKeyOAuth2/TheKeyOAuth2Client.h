@@ -23,11 +23,15 @@ FOUNDATION_EXPORT NSString *const TheKeyOAuth2GuestGUID;
 
 +(TheKeyOAuth2Client *)sharedOAuth2Client;
 
+@property (nonatomic, strong, readonly) NSURL *serverURL;
+@property (nonatomic, strong, readonly) NSString *clientId;
+    
 -(id)init;
 -(void)setServerURL:(NSURL *)serverURL clientId:(NSString *)clientId;
 
 -(NSString *)guid;
 
+-(BOOL)isConfigured;
 -(BOOL)isAuthenticated;
 
 -(void)logout;

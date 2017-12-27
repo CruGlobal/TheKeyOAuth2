@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A5DD09361E3DD20E61CEB3E /* libPods-TheKeyOAuth2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFA7ABA8C5C33723E52B498 /* libPods-TheKeyOAuth2.a */; };
+		4F6BCF8C1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6BCF8B1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift */; };
 		D3BAC3AF1836AD9500EDE24A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BAC3AE1836AD9500EDE24A /* Foundation.framework */; };
 		D3BAC3D61836AF7C00EDE24A /* TheKeyOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC3D51836AF7C00EDE24A /* TheKeyOAuth2Client.m */; };
 		D3C4033C183BE939002F364E /* TheKeyOAuth2LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C4033B183BE939002F364E /* TheKeyOAuth2LoginViewController.m */; };
@@ -26,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F6BCF8A1FF44BC2004E609D /* TheKeyOAuth2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TheKeyOAuth2-Bridging-Header.h"; sourceTree = "<group>"; };
+		4F6BCF8B1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TheKeyOAuth2Client+PasswordGrant.swift"; sourceTree = "<group>"; };
 		4FF059841D3D5CEA000F6461 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = TheKeyOAuth2/Resources/back.png; sourceTree = "<group>"; };
 		4FF059851D3D5CEA000F6461 /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forward.png; path = TheKeyOAuth2/Resources/forward.png; sourceTree = "<group>"; };
 		5DFA7ABA8C5C33723E52B498 /* libPods-TheKeyOAuth2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TheKeyOAuth2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +116,8 @@
 				D3BAC3D51836AF7C00EDE24A /* TheKeyOAuth2Client.m */,
 				D3C4033A183BE939002F364E /* TheKeyOAuth2LoginViewController.h */,
 				D3C4033B183BE939002F364E /* TheKeyOAuth2LoginViewController.m */,
+				4F6BCF8B1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift */,
+				4F6BCF8A1FF44BC2004E609D /* TheKeyOAuth2-Bridging-Header.h */,
 			);
 			path = TheKeyOAuth2;
 			sourceTree = "<group>";
@@ -155,6 +160,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = TheKey;
+				TargetAttributes = {
+					D3BAC3AA1836AD9500EDE24A = {
+						LastSwiftMigration = 0920;
+					};
+				};
 			};
 			buildConfigurationList = D3BAC3A61836AD9500EDE24A /* Build configuration list for PBXProject "TheKeyOAuth2" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -219,6 +229,7 @@
 			files = (
 				D3BAC3D61836AF7C00EDE24A /* TheKeyOAuth2Client.m in Sources */,
 				D3C4033C183BE939002F364E /* TheKeyOAuth2LoginViewController.m in Sources */,
+				4F6BCF8C1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,15 +311,20 @@
 			baseConfigurationReference = AE3262F8F81A51B264ED0E2B /* Pods-TheKeyOAuth2.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DSTROOT = /tmp/TheKeyOAuth2.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TheKeyOAuth2/TheKeyOAuth2-Prefix.pch";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TheKeyOAuth2/TheKeyOAuth2-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -317,15 +333,19 @@
 			baseConfigurationReference = E8B0B05FD0B9E5DDA3CC3A19 /* Pods-TheKeyOAuth2.release.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DSTROOT = /tmp/TheKeyOAuth2.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TheKeyOAuth2/TheKeyOAuth2-Prefix.pch";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TheKeyOAuth2/TheKeyOAuth2-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

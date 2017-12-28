@@ -9,7 +9,7 @@
 import Foundation
 
 public extension TheKeyOAuth2Client {
-    public func passwordGrantLogin(for username: String, password: String) {
+    public func passwordGrantLogin(for username: String, password: String, completion:  @escaping (GTMOAuth2Authentication) -> Void) {
         if !isConfigured() {
             return
         }
@@ -23,12 +23,13 @@ public extension TheKeyOAuth2Client {
                         return
                     }
                     
-                    var auth = GTMOAuth2Authentication()
+                    let auth = GTMOAuth2Authentication()
                     auth.accessToken = json["access_token"] as? String
                     auth.scope = json["scope"] as? String
                     auth.userID = json["thekey_username"] as? String
                     auth.clientID = self.clientId
 //                    self.guid = json["thekey_guid"] as? String
+                    completion(auth)
                     
                 } catch {
                     print(error)

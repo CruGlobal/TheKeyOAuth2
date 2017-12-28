@@ -68,14 +68,5 @@ extension TheKeyOAuth2Client: URLSessionDelegate {
             URLCredential(trust: challenge.protectionSpace.serverTrust!))
     }
 }
-//
-//extension TheKeyOAuth2Client: URLSessionTaskDelegate {
-//    func URLSession(task: URLSessionTask,
-//                    willPerformHTTPRedirection response: HTTPURLResponse,
-//                    newRequest request: NSURLRequest,
-//                    completionHandler: (NSURLRequest!) -> Void) {
-//        let newRequest : NSURLRequest? = request
-//        completionHandler(newRequest)
-//    }
-//}
+
 

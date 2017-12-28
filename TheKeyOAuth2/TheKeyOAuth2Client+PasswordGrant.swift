@@ -28,28 +28,7 @@ public extension TheKeyOAuth2Client {
                         return
                     }
                     
-                    let auth = TheKeyOAuth2Authentication()
-                    auth.clientID = self.clientId
-                    
-                    if let accessToken = json["access_token"] as? String {
-                        auth.accessToken = accessToken
-                    }
-                    
-                    if let scope = json["scope"] as? String {
-                        auth.scope = scope
-                    }
-                    
-                    if let thekeyUsername = json["thekey_username"] as? String {
-                        auth.userID = thekeyUsername
-                    }
-                    
-                    if let refreshToken = json["refresh_token"] as? String {
-                        auth.refreshToken = refreshToken
-                    }
-                    
-                    if let thekeyGuid = json["thekey_guid"] as? String {
-                        auth.setValue(thekeyGuid, forKey: "guid")
-                    }
+                    let auth = buildAuthenticationFromJSON(json)
                     
                     GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: auth)
                     completion(auth, nil)
@@ -81,6 +60,33 @@ public extension TheKeyOAuth2Client {
         request.httpBody = formURLString.data(using: .utf8, allowLossyConversion: false)
         
         return request
+    }
+    
+    private func buildAuthenticationFromJSON(_ json: [String: Any?]) -> TheKeyOAuth2Authentication {
+        let auth = TheKeyOAuth2Authentication()
+        auth.clientID = self.clientId
+        
+        if let accessToken = json["access_token"] as? String {
+            auth.accessToken = accessToken
+        }
+        
+        if let scope = json["scope"] as? String {
+            auth.scope = scope
+        }
+        
+        if let thekeyUsername = json["thekey_username"] as? String {
+            auth.userID = thekeyUsername
+        }
+        
+        if let refreshToken = json["refresh_token"] as? String {
+            auth.refreshToken = refreshToken
+        }
+        
+        if let thekeyGuid = json["thekey_guid"] as? String {
+            auth.setValue(thekeyGuid, forKey: "guid")
+        }
+        
+        return auth
     }
 }
 

@@ -16,8 +16,11 @@ public extension TheKeyOAuth2Client {
         }
         
         let request = buildAccessTokenRequest(for: username, password: password)
+
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        session.dataTask(with: request) { (data, response, error) in
             if let usableData = data {
                 do {
                     guard let json = try JSONSerialization.jsonObject(with: usableData, options: .allowFragments) as? Dictionary<String, Any?> else {
@@ -56,5 +59,26 @@ public extension TheKeyOAuth2Client {
         request.httpBody = formURLString.data(using: .utf8, allowLossyConversion: false)
         
         return request
+    }
+}
+
+extension TheKeyOAuth2Client: NSURLSessionDelegate {
+    func URLSession(session: NSURLSession,
+                    didReceiveChallenge challenge: URLAuthenticationChallenge,
+                    completionHandler: (URLSession.AuthChallengeDisposition,NSURLCredential?) -> Void) {
+        completionHandler(
+            NSURLSessionAuthChallengeDisposition.UseCredential,
+            NSURLCredential(forTrust: challenge.protectionSpace.serverTrust))
+    }
+}
+
+extension TheKeyOAuth2Client: URLSessionTaskDelegate {
+    func URLSession(session: URLSession,
+                    task: URLSessionTask,
+                    willPerformHTTPRedirection response: HTTPURLResponse,
+                    newRequest request: NSURLRequest,
+                    completionHandler: (NSURLRequest!) -> Void) {
+        var newRequest : NSURLRequest? = request
+        completionHandler(newRequest)
     }
 }

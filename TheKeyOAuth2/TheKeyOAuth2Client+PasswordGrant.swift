@@ -79,27 +79,24 @@ public extension TheKeyOAuth2Client {
         return request
     }
     
-    private func buildAuthenticationFromJSON(_ json: [String: Any?]) -> TheKeyOAuth2Authentication {
-        let auth = TheKeyOAuth2Authentication()
-        auth.clientID = self.clientId
+    private func setAuthenticationFromJSON(_ json: [String: Any?]) {
+        self.authentication.clientID = self.clientId
         
         if let accessToken = json["access_token"] as? String {
-            auth.accessToken = accessToken
+            self.authentication.accessToken = accessToken
         }
         
         if let scope = json["scope"] as? String {
-            auth.scope = scope
+            self.authentication.scope = scope
         }
         
         if let thekeyUsername = json["thekey_username"] as? String {
-            auth.userID = thekeyUsername
+            self.authentication.userID = thekeyUsername
         }
         
         if let refreshToken = json["refresh_token"] as? String {
-            auth.refreshToken = refreshToken
+            self.authentication.refreshToken = refreshToken
         }
-        
-        return auth
     }
     
     private func handleSuccessfulPasswordGrant(responseData: Data, completion: @escaping (TheKeyPasswordGrantResult, TheKeyOAuth2Authentication?, Error?) -> Void) {
@@ -108,13 +105,11 @@ public extension TheKeyOAuth2Client {
                 return
             }
             
-            let auth = buildAuthenticationFromJSON(json)
+            setAuthenticationFromJSON(json)
             
-            GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: auth)
+            GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: self.authentication)
             
-            self.authentication = auth
-            
-            completion(.success, auth, nil)
+            completion(.success, self.authentication, nil)
         } catch {
             completion(.jsonParsingError, nil, error)
         }

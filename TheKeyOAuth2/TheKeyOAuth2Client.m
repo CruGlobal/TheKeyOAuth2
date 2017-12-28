@@ -32,12 +32,6 @@ NSString *const TheKeyOAuth2ClientGuidKey = @"guid";
 static NSString *const kTheKeyOAuth2GUIDKey = @"thekey_guid";
 NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 
-@interface TheKeyOAuth2Authentication : GTMOAuth2Authentication
-
-@property (nonatomic) NSString *guid;
-
-@end
-
 @interface TheKeyOAuth2Client () {
     BOOL _isLoginViewPresented;
     BOOL _isConfigured;

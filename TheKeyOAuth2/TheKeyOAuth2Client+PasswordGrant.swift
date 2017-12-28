@@ -17,10 +17,7 @@ public extension TheKeyOAuth2Client {
         
         let request = buildAccessTokenRequest(for: username, password: password)
 
-        let configuration = URLSessionConfiguration.default
-        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
-        
-        session.dataTask(with: request) { (data, response, error) in
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let usableData = data {
                 do {
                     guard let json = try JSONSerialization.jsonObject(with: usableData, options: .allowFragments) as? Dictionary<String, Any?> else {
@@ -62,23 +59,23 @@ public extension TheKeyOAuth2Client {
     }
 }
 
-extension TheKeyOAuth2Client: NSURLSessionDelegate {
-    func URLSession(session: NSURLSession,
-                    didReceiveChallenge challenge: URLAuthenticationChallenge,
-                    completionHandler: (URLSession.AuthChallengeDisposition,NSURLCredential?) -> Void) {
+extension TheKeyOAuth2Client: URLSessionDelegate {
+    public func urlSession(_ session: URLSession,
+                    didReceive challenge: URLAuthenticationChallenge,
+                    completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         completionHandler(
-            NSURLSessionAuthChallengeDisposition.UseCredential,
-            NSURLCredential(forTrust: challenge.protectionSpace.serverTrust))
+            .useCredential,
+            URLCredential(trust: challenge.protectionSpace.serverTrust!))
     }
 }
+//
+//extension TheKeyOAuth2Client: URLSessionTaskDelegate {
+//    func URLSession(task: URLSessionTask,
+//                    willPerformHTTPRedirection response: HTTPURLResponse,
+//                    newRequest request: NSURLRequest,
+//                    completionHandler: (NSURLRequest!) -> Void) {
+//        let newRequest : NSURLRequest? = request
+//        completionHandler(newRequest)
+//    }
+//}
 
-extension TheKeyOAuth2Client: URLSessionTaskDelegate {
-    func URLSession(session: URLSession,
-                    task: URLSessionTask,
-                    willPerformHTTPRedirection response: HTTPURLResponse,
-                    newRequest request: NSURLRequest,
-                    completionHandler: (NSURLRequest!) -> Void) {
-        var newRequest : NSURLRequest? = request
-        completionHandler(newRequest)
-    }
-}

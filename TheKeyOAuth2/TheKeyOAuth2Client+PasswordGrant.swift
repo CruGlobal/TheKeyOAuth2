@@ -15,7 +15,10 @@ public extension TheKeyOAuth2Client {
             return
         }
         
-        let request = buildAccessTokenRequest(for: username, password: password)
+        guard let request = buildAccessTokenRequest(for: username, password: password) else {
+            return
+        }
+        
         let session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         
         session.dataTask(with: request) { (data, response, error) in
@@ -43,15 +46,21 @@ public extension TheKeyOAuth2Client {
             }.resume()
     }
     
-    private func buildAccessTokenRequest(for username: String, password: String) -> URLRequest {
+    private func buildAccessTokenRequest(for username: String, password: String) -> URLRequest? {
+        guard let clientId = clientId, let serverURL = serverURL else {
+            return nil
+        }
+        
         var formURLString = "username=\(username)"
         
         formURLString = formURLString.appending("&password=\(password)")
-        formURLString = formURLString.appending("&client_id=\(clientId!)")
+        formURLString = formURLString.appending("&client_id=\(clientId)")
         formURLString = formURLString.appending("&scope=fullticket extended")
         formURLString = formURLString.appending("&grant_type=password")
         
-        var request = URLRequest(url: serverURL!)
+        let tokenURL = serverURL.appendingPathComponent(TheKeyOAuth2TokenEndpoint)
+        
+        var request = URLRequest(url: tokenURL)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = formURLString.data(using: .utf8, allowLossyConversion: false)

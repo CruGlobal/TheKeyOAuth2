@@ -16,8 +16,9 @@ public extension TheKeyOAuth2Client {
         }
         
         let request = buildAccessTokenRequest(for: username, password: password)
-
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        
+        session.dataTask(with: request) { (data, response, error) in
             if let usableData = data {
                 do {
                     guard let json = try JSONSerialization.jsonObject(with: usableData, options: .allowFragments) as? Dictionary<String, Any?> else {

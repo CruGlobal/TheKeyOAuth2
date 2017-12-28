@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A5DD09361E3DD20E61CEB3E /* libPods-TheKeyOAuth2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFA7ABA8C5C33723E52B498 /* libPods-TheKeyOAuth2.a */; };
+		3554B0CEDAAA3646222F8D7F /* Pods_TheKeyOAuth2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C9B20389692EDF93B98D1CD /* Pods_TheKeyOAuth2.framework */; };
 		4F6BCF8C1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6BCF8B1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift */; };
 		D3BAC3AF1836AD9500EDE24A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BAC3AE1836AD9500EDE24A /* Foundation.framework */; };
 		D3BAC3D61836AF7C00EDE24A /* TheKeyOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC3D51836AF7C00EDE24A /* TheKeyOAuth2Client.m */; };
@@ -31,7 +31,7 @@
 		4F6BCF8B1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TheKeyOAuth2Client+PasswordGrant.swift"; sourceTree = "<group>"; };
 		4FF059841D3D5CEA000F6461 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = TheKeyOAuth2/Resources/back.png; sourceTree = "<group>"; };
 		4FF059851D3D5CEA000F6461 /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forward.png; path = TheKeyOAuth2/Resources/forward.png; sourceTree = "<group>"; };
-		5DFA7ABA8C5C33723E52B498 /* libPods-TheKeyOAuth2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TheKeyOAuth2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C9B20389692EDF93B98D1CD /* Pods_TheKeyOAuth2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheKeyOAuth2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE3262F8F81A51B264ED0E2B /* Pods-TheKeyOAuth2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheKeyOAuth2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheKeyOAuth2/Pods-TheKeyOAuth2.debug.xcconfig"; sourceTree = "<group>"; };
 		CBEB0AEA9BB74A64BB7CDF39 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3BAC3AB1836AD9500EDE24A /* libTheKeyOAuth2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTheKeyOAuth2.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,7 +52,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3BAC3AF1836AD9500EDE24A /* Foundation.framework in Frameworks */,
-				1A5DD09361E3DD20E61CEB3E /* libPods-TheKeyOAuth2.a in Frameworks */,
+				3554B0CEDAAA3646222F8D7F /* Pods_TheKeyOAuth2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +103,7 @@
 				D3BAC3BC1836AD9500EDE24A /* XCTest.framework */,
 				D3BAC3BF1836AD9500EDE24A /* UIKit.framework */,
 				CBEB0AEA9BB74A64BB7CDF39 /* libPods.a */,
-				5DFA7ABA8C5C33723E52B498 /* libPods-TheKeyOAuth2.a */,
+				9C9B20389692EDF93B98D1CD /* Pods_TheKeyOAuth2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -28,10 +28,7 @@ extern NSString *const TheKeyOAuth2TokenEndpoint;
 /* Customized extension of the GTMOAuth2Authentication interface which adds a property for GUID */
 @interface TheKeyOAuth2Authentication : GTMOAuth2Authentication
 
-@property (nonatomic) NSString *guid;
-
--(void)setGuid:(NSString *)guid;
--(void)setValue:(id)value forKey:(NSString *)key;
+@property (nonatomic, strong) NSString *guid;
 
 @end
 

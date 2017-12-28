@@ -100,7 +100,7 @@ public extension TheKeyOAuth2Client {
         }
         
         if let thekeyGuid = json["thekey_guid"] as? String {
-            auth.setValue(thekeyGuid, forKey: "guid")
+            auth.guid = thekeyGuid
         }
         
         return auth

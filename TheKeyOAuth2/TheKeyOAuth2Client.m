@@ -220,6 +220,8 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 
 @implementation TheKeyOAuth2Authentication
 
+@synthesize guid = _guid;
+
 -(NSString *)guid {
     return [self.parameters objectForKey:kTheKeyOAuth2GUIDKey];
 }

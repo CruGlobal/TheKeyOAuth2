@@ -12,32 +12,31 @@ import GTMOAuth2
 public extension TheKeyOAuth2Client {
     public func passwordGrantLogin(for username: String, password: String, completion: @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
         if !isConfigured() {
+            completion(nil, nil)
             return
         }
         
         guard let request = buildAccessTokenRequest(for: username, password: password) else {
+            completion(nil, nil)
             return
         }
         
         let session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         
         session.dataTask(with: request) { (data, response, error) in
-            if let usableData = data {
-                do {
-                    guard let json = try JSONSerialization.jsonObject(with: usableData, options: .allowFragments) as? Dictionary<String, Any?> else {
-                        return
-                    }
-                    
-                    let auth = buildAuthenticationFromJSON(json)
-                    
-                    GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: auth)
-                    completion(auth, nil)
-                } catch {
-                    completion(nil, error)
-                    print(error)
-                }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, nil)
+                return
             }
-            }.resume()
+
+            if httpResponse.statusCode == 200, let usableData = data {
+                self.handleSuccessfulPasswordGrant(responseData: usableData, completion: completion)
+            }
+            
+            if httpResponse.statusCode == 400, let usableData = data {
+                self.handleBadResponse(responseData: usableData, completion: completion)
+            }
+        }.resume()
     }
     
     private func buildAccessTokenRequest(for username: String, password: String) -> URLRequest? {
@@ -87,6 +86,33 @@ public extension TheKeyOAuth2Client {
         }
         
         return auth
+    }
+    
+    private func handleSuccessfulPasswordGrant(responseData: Data, completion: @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
+        do {
+            guard let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String, Any?> else {
+                return
+            }
+            
+            let auth = buildAuthenticationFromJSON(json)
+            
+            GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: auth)
+            completion(auth, nil)
+        } catch {
+            completion(nil, error)
+        }
+    }
+    
+    private func handleBadResponse(responseData: Data, completion: @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
+        do {
+            guard let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String, Any?> else {
+                return
+            }
+            
+            completion(nil, nil)
+        } catch {
+            completion(nil, error)
+        }
     }
 }
 

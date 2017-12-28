@@ -27,6 +27,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F61DFAA1FF5463900B8C554 /* TheKeyOAuth2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TheKeyOAuth2.h; sourceTree = "<group>"; };
 		4F6BCF8A1FF44BC2004E609D /* TheKeyOAuth2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TheKeyOAuth2-Bridging-Header.h"; sourceTree = "<group>"; };
 		4F6BCF8B1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TheKeyOAuth2Client+PasswordGrant.swift"; sourceTree = "<group>"; };
 		4FF059841D3D5CEA000F6461 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = TheKeyOAuth2/Resources/back.png; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 				D3C4033B183BE939002F364E /* TheKeyOAuth2LoginViewController.m */,
 				4F6BCF8B1FF44BC2004E609D /* TheKeyOAuth2Client+PasswordGrant.swift */,
 				4F6BCF8A1FF44BC2004E609D /* TheKeyOAuth2-Bridging-Header.h */,
+				4F61DFAA1FF5463900B8C554 /* TheKeyOAuth2.h */,
 			);
 			path = TheKeyOAuth2;
 			sourceTree = "<group>";
@@ -271,6 +273,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -302,6 +305,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

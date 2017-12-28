@@ -99,10 +99,6 @@ public extension TheKeyOAuth2Client {
             auth.refreshToken = refreshToken
         }
         
-        if let thekeyGuid = json["thekey_guid"] as? String {
-            (auth.parameters as NSDictionary).setValue(thekeyGuid, forKey: "thekeyGuid")
-        }
-        
         return auth
     }
     

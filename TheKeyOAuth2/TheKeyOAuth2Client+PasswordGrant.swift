@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import GTMOAuth2
+
 
 public extension TheKeyOAuth2Client {
     public func passwordGrantLogin(for username: String, password: String, completion:  @escaping (GTMOAuth2Authentication) -> Void) {

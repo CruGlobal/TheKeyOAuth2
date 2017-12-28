@@ -9,16 +9,15 @@
 import Foundation
 import GTMOAuth2
 
-
 public extension TheKeyOAuth2Client {
-    public func passwordGrantLogin(for username: String, password: String, completion:  @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
+    public func passwordGrantLogin(for username: String, password: String, completion: @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
         if !isConfigured() {
             return
         }
         
         let request = buildAccessTokenRequest(for: username, password: password)
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in            
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let usableData = data {
                 do {
                     guard let json = try JSONSerialization.jsonObject(with: usableData, options: .allowFragments) as? Dictionary<String, Any?> else {

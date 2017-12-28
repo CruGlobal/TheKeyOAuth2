@@ -30,6 +30,9 @@ extern NSString *const TheKeyOAuth2TokenEndpoint;
 
 @property (nonatomic) NSString *guid;
 
+-(void)setGuid:(NSString *)guid;
+-(void)setValue:(id)value forKey:(NSString *)key;
+
 @end
 
 @interface TheKeyOAuth2Client : NSObject

@@ -29,12 +29,27 @@ public extension TheKeyOAuth2Client {
                     }
                     
                     let auth = TheKeyOAuth2Authentication()
-                    auth.accessToken = json["access_token"] as? String
-                    auth.scope = json["scope"] as? String
-                    auth.userID = json["thekey_username"] as? String
                     auth.clientID = self.clientId
-                    auth.refreshToken = json["refresh_token"] as? String
-                    auth.guid = json["thekey_guid"] as? String
+                    
+                    if let accessToken = json["access_token"] as? String {
+                        auth.accessToken = accessToken
+                    }
+                    
+                    if let scope = json["scope"] as? String {
+                        auth.scope = scope
+                    }
+                    
+                    if let thekeyUsername = json["thekey_username"] as? String {
+                        auth.userID = thekeyUsername
+                    }
+                    
+                    if let refreshToken = json["refresh_token"] as? String {
+                        auth.refreshToken = refreshToken
+                    }
+                    
+                    if let thekeyGuid = json["thekey_guid"] as? String {
+                        auth.setValue(thekeyGuid, forKey: "guid")
+                    }
                     
                     GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: auth)
                     completion(auth, nil)

@@ -111,6 +111,9 @@ public extension TheKeyOAuth2Client {
             let auth = buildAuthenticationFromJSON(json)
             
             GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: auth)
+            
+            self.authentication = auth
+            
             completion(.success, auth, nil)
         } catch {
             completion(.jsonParsingError, nil, error)

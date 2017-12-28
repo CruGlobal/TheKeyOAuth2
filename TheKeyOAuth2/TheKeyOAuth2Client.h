@@ -38,7 +38,8 @@ extern NSString *const TheKeyOAuth2TokenEndpoint;
 
 @property (nonatomic, strong, readonly) NSURL *serverURL;
 @property (nonatomic, strong, readonly) NSString *clientId;
-    
+@property (nonatomic, strong) TheKeyOAuth2Authentication *authentication;
+
 -(id)init;
 -(void)setServerURL:(NSURL *)serverURL clientId:(NSString *)clientId;
 

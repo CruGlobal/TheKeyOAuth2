@@ -9,33 +9,51 @@
 import Foundation
 import GTMOAuth2
 
+public enum TheKeyPasswordGrantResult {
+    case success, badPassword, jsonParsingError, serverError, clientNotConfiguredError, responseCastingError, unknownError
+}
+
 public extension TheKeyOAuth2Client {
-    public func passwordGrantLogin(for username: String, password: String, completion: @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
+    public func passwordGrantLogin(for username: String, password: String, completion: @escaping (TheKeyPasswordGrantResult, TheKeyOAuth2Authentication?, Error?) -> Void) {
         if !isConfigured() {
-            completion(nil, nil)
+            completion(.clientNotConfiguredError, nil, nil)
             return
         }
         
         guard let request = buildAccessTokenRequest(for: username, password: password) else {
-            completion(nil, nil)
+            completion(.clientNotConfiguredError, nil, nil)
             return
         }
         
         let session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         
         session.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.unknownError, nil, error)
+                return
+            }
+            
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(nil, nil)
+                completion(.responseCastingError, nil, nil)
                 return
             }
 
             if httpResponse.statusCode == 200, let usableData = data {
                 self.handleSuccessfulPasswordGrant(responseData: usableData, completion: completion)
+                return
             }
             
             if httpResponse.statusCode == 400, let usableData = data {
                 self.handleBadResponse(responseData: usableData, completion: completion)
+                return
             }
+            
+            if httpResponse.statusCode / 100 == 5 {
+                completion(.serverError, nil, nil)
+                return
+            }
+            
+            completion(.unknownError, nil, nil)
         }.resume()
     }
     
@@ -88,7 +106,7 @@ public extension TheKeyOAuth2Client {
         return auth
     }
     
-    private func handleSuccessfulPasswordGrant(responseData: Data, completion: @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
+    private func handleSuccessfulPasswordGrant(responseData: Data, completion: @escaping (TheKeyPasswordGrantResult, TheKeyOAuth2Authentication?, Error?) -> Void) {
         do {
             guard let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String, Any?> else {
                 return
@@ -97,21 +115,25 @@ public extension TheKeyOAuth2Client {
             let auth = buildAuthenticationFromJSON(json)
             
             GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: auth)
-            completion(auth, nil)
+            completion(.success, auth, nil)
         } catch {
-            completion(nil, error)
+            completion(.jsonParsingError, nil, error)
         }
     }
     
-    private func handleBadResponse(responseData: Data, completion: @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
+    private func handleBadResponse(responseData: Data, completion: @escaping (TheKeyPasswordGrantResult, TheKeyOAuth2Authentication?, Error?) -> Void) {
         do {
             guard let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String, Any?> else {
                 return
             }
             
-            completion(nil, nil)
+            if let errorMessage = json["thekey_authn_error"] as? String, errorMessage == "invalid_credentials" {
+                completion(.badPassword, nil, nil)
+            }
+            
+            completion(.serverError, nil, nil)
         } catch {
-            completion(nil, error)
+            completion(.jsonParsingError, nil, error)
         }
     }
 }

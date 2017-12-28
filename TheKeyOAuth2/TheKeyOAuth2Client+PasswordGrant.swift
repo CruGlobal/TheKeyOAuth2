@@ -23,9 +23,12 @@ public extension TheKeyOAuth2Client {
                         return
                     }
                     
+                    var auth = GTMOAuth2Authentication()
+                    auth.accessToken = json["access_token"] as? String
+                    auth.scope = json["scope"] as? String
+                    auth.userID = json["thekey_username"] as? String
+                    auth.clientID = self.clientId
 //                    self.guid = json["thekey_guid"] as? String
-//                    self.username = json["thekey_username"] as? String
-//                    self.accessToken = json["access_token"] as? String
                     
                 } catch {
                     print(error)

@@ -22,6 +22,9 @@ FOUNDATION_EXPORT NSString *const TheKeyOAuth2GuestGUID;
 /* TheKey Keychain Name */
 extern NSString *const TheKeyOAuth2KeychainName;
 
+/* TheKey Token Endpoint Name */
+extern NSString *const TheKeyOAuth2TokenEndpoint;
+
 /* Customized extension of the GTMOAuth2Authentication interface which adds a property for GUID */
 @interface TheKeyOAuth2Authentication : GTMOAuth2Authentication
 

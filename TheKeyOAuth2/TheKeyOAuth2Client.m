@@ -19,7 +19,7 @@ static NSString *const TheKeyOAuth2Scope           = @"fullticket extended";
 NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
 
 /* TheKey OAuth2 Endpoints */
-static NSString *const TheKeyOAuth2TokenEndpoint      = @"api/oauth/token";
+NSString *const TheKeyOAuth2TokenEndpoint      = @"api/oauth/token";
 static NSString *const TheKeyOAuth2TicketEndpoint     = @"api/oauth/ticket";
 static NSString *const TheKeyOAuth2AttributesEndpoint = @"api/oauth/attributes";
 static NSString *const TheKeyOAuth2AuthorizeEndpoint  = @"login";

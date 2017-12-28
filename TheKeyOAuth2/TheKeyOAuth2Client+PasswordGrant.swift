@@ -11,7 +11,7 @@ import GTMOAuth2
 
 
 public extension TheKeyOAuth2Client {
-    public func passwordGrantLogin(for username: String, password: String, completion:  @escaping (GTMOAuth2Authentication?, Error?) -> Void) {
+    public func passwordGrantLogin(for username: String, password: String, completion:  @escaping (TheKeyOAuth2Authentication?, Error?) -> Void) {
         if !isConfigured() {
             return
         }
@@ -25,17 +25,16 @@ public extension TheKeyOAuth2Client {
                         return
                     }
                     
-                    let auth = GTMOAuth2Authentication()
+                    let auth = TheKeyOAuth2Authentication()
                     auth.accessToken = json["access_token"] as? String
                     auth.scope = json["scope"] as? String
                     auth.userID = json["thekey_username"] as? String
                     auth.clientID = self.clientId
                     auth.refreshToken = json["refresh_token"] as? String
-//                    self.guid = json["thekey_guid"] as? String
+                    auth.guid = json["thekey_guid"] as? String
                     
                     GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: auth)
                     completion(auth, nil)
-                    
                 } catch {
                     completion(nil, error)
                     print(error)

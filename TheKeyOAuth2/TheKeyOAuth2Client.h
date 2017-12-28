@@ -19,6 +19,9 @@ FOUNDATION_EXPORT NSString *const TheKeyOAuth2ClientGuidKey;
 /* TheKey Guest GUID */
 FOUNDATION_EXPORT NSString *const TheKeyOAuth2GuestGUID;
 
+/* TheKey Keychain Name */
+extern NSString *const TheKeyOAuth2KeychainName;
+
 @interface TheKeyOAuth2Client : NSObject
 
 +(TheKeyOAuth2Client *)sharedOAuth2Client;

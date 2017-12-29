@@ -38,7 +38,6 @@ extern NSString *const TheKeyOAuth2TokenEndpoint;
 
 @property (nonatomic, strong, readonly) NSURL *serverURL;
 @property (nonatomic, strong, readonly) NSString *clientId;
-@property (nonatomic, strong) TheKeyOAuth2Authentication *authentication;
 
 -(id)init;
 -(void)setServerURL:(NSURL *)serverURL clientId:(NSString *)clientId;
@@ -58,6 +57,8 @@ extern NSString *const TheKeyOAuth2TokenEndpoint;
 
 -(void)ticketForServiceURL:(NSURL *)service complete:(void (^)(NSString *ticket))complete;
 
+-(void)setAuthenticationValuesFromJSON:(NSDictionary *)json;
+-(void)saveAuthenticationToKeychain;
 @end
 
 @protocol TheKeyOAuth2ClientLoginDelegate <NSObject>

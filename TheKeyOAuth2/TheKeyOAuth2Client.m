@@ -40,6 +40,7 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 @property (nonatomic, strong, readwrite) NSURL *serverURL;
 @property (nonatomic, strong, readwrite) NSString *clientId;
 @property (nonatomic, weak) id<TheKeyOAuth2ClientLoginDelegate> loginDelegate;
+@property (nonatomic, strong) TheKeyOAuth2Authentication *authentication;
 
 @end
 
@@ -211,6 +212,18 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 - (NSString *)redirectURL {
     NSString *optionalSlash = [[[self serverURL] absoluteString] hasSuffix:@"/"] ? @"" : @"/";
     return [NSString stringWithFormat:@"%@%@%@", [[self serverURL] absoluteString], optionalSlash, TheKeyOAuth2RedirectURI];
+}
+
+
+-(void)setAuthenticationValuesFromJSON:(NSDictionary *)json {
+    self.authentication.accessToken = json[@"access_token"];
+    self.authentication.scope = json[@"scope"];
+    self.authentication.userID = json[@"thekey_username"];
+    self.authentication.refreshToken = json[@"refresh_token"];
+}
+
+-(void)saveAuthenticationToKeychain {
+    [GTMOAuth2ViewControllerTouch saveParamsToKeychainForName:TheKeyOAuth2KeychainName authentication:self.authentication];
 }
 
 @end

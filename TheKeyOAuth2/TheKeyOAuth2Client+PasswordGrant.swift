@@ -79,35 +79,14 @@ public extension TheKeyOAuth2Client {
         return request
     }
     
-    private func setAuthenticationFromJSON(_ json: [String: Any?]) {
-        self.authentication.clientID = self.clientId
-        
-        if let accessToken = json["access_token"] as? String {
-            self.authentication.accessToken = accessToken
-        }
-        
-        if let scope = json["scope"] as? String {
-            self.authentication.scope = scope
-        }
-        
-        if let thekeyUsername = json["thekey_username"] as? String {
-            self.authentication.userID = thekeyUsername
-        }
-        
-        if let refreshToken = json["refresh_token"] as? String {
-            self.authentication.refreshToken = refreshToken
-        }
-    }
-    
     private func handleSuccessfulPasswordGrant(responseData: Data, completion: @escaping (TheKeyPasswordGrantResult, Error?) -> Void) {
         do {
             guard let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String, Any?> else {
                 return
             }
-            
-            setAuthenticationFromJSON(json)
-            
-            GTMOAuth2ViewControllerTouch.saveParamsToKeychain(forName: TheKeyOAuth2KeychainName, authentication: self.authentication)
+
+            setAuthenticationValuesFromJSON(json)
+            saveAuthenticationToKeychain()
             
             completion(.success, nil)
         } catch {

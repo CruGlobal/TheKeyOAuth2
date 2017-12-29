@@ -84,7 +84,16 @@
         return true;
     }
     
-    NSString *languageCode = [locale languageCode];
+    NSString *languageCode;
+    
+    if (@available(iOS 10, *)) {
+        languageCode = [locale languageCode];
+    } else {
+        NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+        NSDictionary *languageDic = [NSLocale componentsFromLocaleIdentifier:language];
+        languageCode = [languageDic objectForKey:@"kCFLocaleLanguageCodeKey"];
+    }
+    
     if (!languageCode) {
         return true;
     }

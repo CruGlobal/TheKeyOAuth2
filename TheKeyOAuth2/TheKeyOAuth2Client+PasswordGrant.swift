@@ -73,7 +73,7 @@ public extension TheKeyOAuth2Client {
         
         formURLString = formURLString.appending("&password=\(encodedPassword)")
         formURLString = formURLString.appending("&client_id=\(clientId)")
-        formURLString = formURLString.appending("&scope=fullticket extended")
+        formURLString = formURLString.appending("&scope=fullticket%20extended")
         formURLString = formURLString.appending("&grant_type=password")
         
         let tokenURL = serverURL.appendingPathComponent(TheKeyOAuth2TokenEndpoint)

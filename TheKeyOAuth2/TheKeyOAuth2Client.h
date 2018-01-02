@@ -19,15 +19,32 @@ FOUNDATION_EXPORT NSString *const TheKeyOAuth2ClientGuidKey;
 /* TheKey Guest GUID */
 FOUNDATION_EXPORT NSString *const TheKeyOAuth2GuestGUID;
 
+/* TheKey Keychain Name */
+extern NSString *const TheKeyOAuth2KeychainName;
+
+/* TheKey Token Endpoint Name */
+extern NSString *const TheKeyOAuth2TokenEndpoint;
+
+/* Customized extension of the GTMOAuth2Authentication interface which adds a property for GUID */
+@interface TheKeyOAuth2Authentication : GTMOAuth2Authentication
+
+@property (nonatomic, strong) NSString *guid;
+
+@end
+
 @interface TheKeyOAuth2Client : NSObject
 
 +(TheKeyOAuth2Client *)sharedOAuth2Client;
+
+@property (nonatomic, strong, readonly) NSURL *serverURL;
+@property (nonatomic, strong, readonly) NSString *clientId;
 
 -(id)init;
 -(void)setServerURL:(NSURL *)serverURL clientId:(NSString *)clientId;
 
 -(NSString *)guid;
 
+-(BOOL)isConfigured;
 -(BOOL)isAuthenticated;
 
 -(void)logout;
@@ -40,6 +57,8 @@ FOUNDATION_EXPORT NSString *const TheKeyOAuth2GuestGUID;
 
 -(void)ticketForServiceURL:(NSURL *)service complete:(void (^)(NSString *ticket))complete;
 
+-(void)setAuthenticationValuesFromJSON:(NSDictionary *)json;
+-(void)saveAuthenticationToKeychain;
 @end
 
 @protocol TheKeyOAuth2ClientLoginDelegate <NSObject>

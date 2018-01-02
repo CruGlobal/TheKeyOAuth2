@@ -16,10 +16,10 @@
 static NSString *const TheKeyOAuth2ServiceProvider = @"TheKey";
 static NSString *const TheKeyOAuth2RedirectURI     = @"oauth/client/public";
 static NSString *const TheKeyOAuth2Scope           = @"fullticket extended";
-static NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
+NSString *const TheKeyOAuth2KeychainName    = @"TheKeyOAuth2Authentication";
 
 /* TheKey OAuth2 Endpoints */
-static NSString *const TheKeyOAuth2TokenEndpoint      = @"api/oauth/token";
+NSString *const TheKeyOAuth2TokenEndpoint      = @"api/oauth/token";
 static NSString *const TheKeyOAuth2TicketEndpoint     = @"api/oauth/ticket";
 static NSString *const TheKeyOAuth2AttributesEndpoint = @"api/oauth/attributes";
 static NSString *const TheKeyOAuth2AuthorizeEndpoint  = @"login";
@@ -32,22 +32,15 @@ NSString *const TheKeyOAuth2ClientGuidKey = @"guid";
 static NSString *const kTheKeyOAuth2GUIDKey = @"thekey_guid";
 NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 
-@interface TheKeyOAuth2Authentication : GTMOAuth2Authentication
-
-@property (nonatomic) NSString *guid;
-
-@end
-
 @interface TheKeyOAuth2Client () {
-    @private
     BOOL _isLoginViewPresented;
     BOOL _isConfigured;
 }
 
-@property (nonatomic, strong) NSURL *serverURL;
-@property (nonatomic, strong) NSString *clientId;
-@property (nonatomic, strong) TheKeyOAuth2Authentication *authentication;
+@property (nonatomic, strong, readwrite) NSURL *serverURL;
+@property (nonatomic, strong, readwrite) NSString *clientId;
 @property (nonatomic, weak) id<TheKeyOAuth2ClientLoginDelegate> loginDelegate;
+@property (nonatomic, strong) TheKeyOAuth2Authentication *authentication;
 
 @end
 
@@ -85,6 +78,10 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
     return [self.authentication canAuthorize];
 }
 
+-(BOOL)isConfigured {
+    return _isConfigured;
+}
+    
 -(NSString *)guid {
     return self.authentication.guid ?: TheKeyOAuth2GuestGUID;
 }
@@ -102,17 +99,18 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 }
 
 -(TheKeyOAuth2LoginViewController *)loginViewController:(Class)loginViewControllerClass loginDelegate:(id<TheKeyOAuth2ClientLoginDelegate>)delegate {
-    if ([loginViewControllerClass isSubclassOfClass:[TheKeyOAuth2LoginViewController class]]) {
-        self.loginDelegate = delegate;
-        _isLoginViewPresented = NO;
-        return (TheKeyOAuth2LoginViewController *)[[loginViewControllerClass alloc]
-                                                initWithAuthentication:self.authentication
-                                                authorizationURL:[self.serverURL URLByAppendingPathComponent:TheKeyOAuth2AuthorizeEndpoint]
-                                                keychainItemName:TheKeyOAuth2KeychainName
-                                                delegate:self
-                                                finishedSelector:@selector(viewController:finishedWithAuth:error:)];
+    if (![loginViewControllerClass isSubclassOfClass:[TheKeyOAuth2LoginViewController class]]) {
+        return nil;
     }
-    return nil;
+    
+    self.loginDelegate = delegate;
+    _isLoginViewPresented = NO;
+    return (TheKeyOAuth2LoginViewController *)[[loginViewControllerClass alloc]
+                                               initWithAuthentication:self.authentication
+                                               authorizationURL:[self.serverURL URLByAppendingPathComponent:TheKeyOAuth2AuthorizeEndpoint]
+                                               keychainItemName:TheKeyOAuth2KeychainName
+                                               delegate:self
+                                               finishedSelector:@selector(viewController:finishedWithAuth:error:)];
 }
 
 -(void)presentLoginViewController:(Class)loginViewControllerClass fromViewController:(UIViewController *)viewController loginDelegate:(id<TheKeyOAuth2ClientLoginDelegate>)delegate {
@@ -214,6 +212,18 @@ NSString *const TheKeyOAuth2GuestGUID = @"GUEST";
 - (NSString *)redirectURL {
     NSString *optionalSlash = [[[self serverURL] absoluteString] hasSuffix:@"/"] ? @"" : @"/";
     return [NSString stringWithFormat:@"%@%@%@", [[self serverURL] absoluteString], optionalSlash, TheKeyOAuth2RedirectURI];
+}
+
+
+-(void)setAuthenticationValuesFromJSON:(NSDictionary *)json {
+    self.authentication.accessToken = json[@"access_token"];
+    self.authentication.scope = json[@"scope"];
+    self.authentication.userID = json[@"thekey_username"];
+    self.authentication.refreshToken = json[@"refresh_token"];
+}
+
+-(void)saveAuthenticationToKeychain {
+    [GTMOAuth2ViewControllerTouch saveParamsToKeychainForName:TheKeyOAuth2KeychainName authentication:self.authentication];
 }
 
 @end

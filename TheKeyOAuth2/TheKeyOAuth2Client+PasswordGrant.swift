@@ -62,8 +62,12 @@ public extension TheKeyOAuth2Client {
             return nil
         }
         
-        let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed)
-        let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: .urlPasswordAllowed)
+        guard let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed) else {
+            return nil
+        }
+        guard let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: .urlPasswordAllowed) else {
+            return nil
+        }
         
         var formURLString = "username=\(encodedUsername)"
         

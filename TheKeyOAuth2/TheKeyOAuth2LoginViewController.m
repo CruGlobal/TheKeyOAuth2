@@ -77,8 +77,32 @@
     self.navigationItem.rightBarButtonItems = @[self.forwardBarButtonItem, self.backBarButtonItem];
 }
 
+/* defaults to true if locale or language code cannot be determined */
 -(bool)isLeftToRightLanguage {
-    return ![@"ar" isEqualToString:[[NSLocale currentLocale] languageCode]];
+    NSLocale *locale = [NSLocale currentLocale];
+    if (!locale) {
+        return true;
+    }
+    
+    NSString *languageCode;
+    
+    if (@available(iOS 10, *)) {
+        languageCode = [locale languageCode];
+    } else {
+        NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+        NSDictionary *languageDic = [NSLocale componentsFromLocaleIdentifier:language];
+        languageCode = [languageDic objectForKey:@"kCFLocaleLanguageCodeKey"];
+    }
+    
+    if (!languageCode) {
+        return true;
+    }
+    
+    if (![languageCode respondsToSelector:@selector(isEqualToString:)]) {
+        return true;
+    }
+    
+    return ![languageCode isEqualToString:@"ar"];
 }
 
 -(UIImage *)leftChevronImage {

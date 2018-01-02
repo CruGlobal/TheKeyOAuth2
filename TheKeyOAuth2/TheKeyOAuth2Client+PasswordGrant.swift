@@ -62,9 +62,12 @@ public extension TheKeyOAuth2Client {
             return nil
         }
         
-        var formURLString = "username=\(username)"
+        let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed)
+        let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: .urlPasswordAllowed)
         
-        formURLString = formURLString.appending("&password=\(password)")
+        var formURLString = "username=\(encodedUsername)"
+        
+        formURLString = formURLString.appending("&password=\(encodedPassword)")
         formURLString = formURLString.appending("&client_id=\(clientId)")
         formURLString = formURLString.appending("&scope=fullticket extended")
         formURLString = formURLString.appending("&grant_type=password")
